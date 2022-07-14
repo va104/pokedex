@@ -45,8 +45,9 @@ let pokemonTypesAndColors = [
         "color": "#559de1",
     },
     {
+
         "name": "grass",
-        "color": "#67be7d",
+        "color": "#41af5d",
     },
     {
         "name": "electric",
@@ -62,7 +63,7 @@ let pokemonTypesAndColors = [
     },
     {
         "name": "dragon",
-        "color": "#706b86",
+        "color": "#3e307c",
     },
     {
         "name": "dark",
@@ -72,21 +73,13 @@ let pokemonTypesAndColors = [
         "name": "fairy",
         "color": "#e584ac",
     },
-    {
-        "name": "shadow",
-        "color": "#584732",
-    },
-    {
-        "name": "unknown",
-        "color": "#f3f3f3",
-    }
 ]
 
 function HTMLrenderPokemons(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color){
     return /*html*/ `
-    <div id="pokemonCard${i}" class="pokemon-card" style="background-color: ${color}">
+    <div id="pokemonCard${i}" class="pokemon-card" onclick="openPokemonCard(${i})" style="${color}">
     <div class="padding-pokemon-card d-flex">
-        <img id="pokemon1"
+        <img class="pokemon-img"
             src=${pokemonImg} alt="">
         <div class="name-type">
             <span>${nameToUpperCase}</span>
@@ -100,3 +93,100 @@ function HTMLrenderPokemons(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color
     </div>
 </div>`
 }
+
+// AboutSection
+// <div class="pokemon-description">
+//                         <span>A strange seed was planted on its back at birth. The plant sprouts and grows with this
+//                             POKéMON.</span>
+//                     </div>
+//                     <div class="pokemon-all-abouts">
+//                         <div class="abouts-categories">
+//                             <div class="abouts-header">
+//                                 <img src="./img/leaf.png" alt="Species">
+//                                 <p>species</p>
+//                             </div>
+//                             <div class="abouts-body">
+//                                 <span>Seed-Pokemon</span>
+//                             </div>
+//                         </div>
+//                         <div class="abouts-categories border-left">
+//                             <div class="abouts-header">
+//                                 <img src="./img/weight.png" alt="Weight">
+//                                 <p>weight</p>
+//                             </div>
+//                             <div class="abouts-body">
+//                                 <span>10cm</span>
+//                                 &nbsp|&nbsp 
+//                                 <span>0.33f</span>
+//                             </div>
+//                         </div>
+//                         <div class="abouts-categories border-left">
+//                             <div class="abouts-header">
+//                                 <img src="./img/height.png" alt="Height">
+//                                 <p>height</p>
+//                             </div>
+//                             <div class="abouts-body">
+//                                 <span>10cm</span>
+//                                 &nbsp|&nbsp 
+//                                 <span>0.33f</span>
+//                             </div>
+//                         </div>
+//                     </div>
+
+
+
+// stats
+// <div class="pokemon-stats-container">
+//                         <div class="stats">
+//                             <p>HP</p>
+//                             <p><b>40</b></p>
+//                             <div class="stat-statusbar">
+//                                 <div class="single-stat"></div>
+//                             </div>
+//                         </div>
+//                         <div class="stats">
+//                             <p>Attack</p>
+//                             <p><b>40</b></p>
+//                             <div class="stat-statusbar">
+//                                 <div class="single-stat"></div>
+//                             </div>
+//                         </div>
+//                         <div class="stats">
+//                             <p>Defense</p>
+//                             <p><b>40</b></p>
+//                             <div class="stat-statusbar">
+//                                 <div class="single-stat"></div>
+//                             </div>
+//                         </div>
+//                         <div class="stats">
+//                             <p>Special-Attack</p>
+//                             <p><b>40</b></p>
+//                             <div class="stat-statusbar">
+//                                 <div class="single-stat"></div>
+//                             </div>
+//                         </div>
+//                         <div class="stats">
+//                             <p>Special-Defense</p>
+//                             <p><b>40</b></p>
+//                             <div class="stat-statusbar">
+//                                 <div class="single-stat"></div>
+//                             </div>
+//                         </div>
+//                         <div class="stats">
+//                             <p>Speed</p>
+//                             <p><b>40</b></p>
+//                             <div class="stat-statusbar">
+//                                 <div class="single-stat"></div>
+//                             </div>
+//                         </div>
+//                         <div class="stats">
+//                             <p><b>Total</b></p>
+//                             <p><b>100</b></p>
+//                         </div>
+//                     </div>
+
+
+// moves
+// <div class="moves-container">
+// <div class="move">Vine-Whop</div>
+// </div>

@@ -12,33 +12,55 @@
     <title>Pokedex</title>
 </head>
 
-<body onload="loadPokemon()">
-    <div class="header">
-        <div class="title">POKÉDEX</div>
-        <div>tbd</div>
-        <div>tbd</div>
+<body onload="loadPokemon(), loadTypeButtons()">
+    <div id="coverForPokemonCard" class="">
+        <div class="header">
+            <div class="title" onclick="renderPokemons('startPage')">POKÉDEX</div>
+            <div onclick="toogleTypes()">types</div>
+            <div>tbd</div>
+        </div>
+        <div id="allButtons" class="allButtons d-none">
+        </div>
+        <div id="containerAllPokemons" class="main-content-pokemons">
+        </div>
+        <div id="loadMoreButton" class="loadMore-container">
+            <button class="loadMore" onclick="loadMorePokemons()">MORE</button>
+        </div>
     </div>
-    <div id="containerAllPokemons" class="main-content-pokemons">
-        <!-- <div class="pokemon-card">
-            <div class="padding-pokemon-card d-flex">
-                <img id="pokemon1"
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
-                    alt="">
-                <div class="name-type">
+
+
+    <div id="overlay-pokemon-container" class="overlay-pokemon-container d-none">
+        <div class="overlay-top-pokemon">
+            <img class="back-to-menu" src="./img/cross.png" alt="BackToMenu">
+            <div class="overlay-header">
+                <img class="scaleArrow" src="./img/arrowLeft.png" alt="ArrowLeft">
+                <div class="overlay-pokemon-name">
                     <span>Bulbasaur</span>
-                    <div class="pokemon-type">
-                        <img src="./img/types/grass.png" alt="">
-                        <img src="./img/types/poison.png" alt="">
-                    </div>
-                </div>
-                <div class="pokemon-number">
                     <span>#001</span>
                 </div>
+                <img class="scaleArrow arrowRight" src="./img/arrowLeft.png" alt="ArrowRight">
             </div>
-        </div> -->
-    </div>
-    <div id="loadMore" onclick="loadPokemon()">
-        More
+
+        </div>
+        <div class="overlay-bottom-pokemon">
+            <img class="pokemon-overlay-img"
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
+                alt="">
+            <div class="nav-pokemon-container">
+                <div class="overlay-pokemon-types-container">
+                    <div class="overlay-pokemon-type testgrass">Grass</div>
+                    <div class="overlay-pokemon-type testpoison">Poison</div>
+                </div>
+                <div class="nav-menu-container">
+                    <div class="nav-menu chosenNavElement">About</div>
+                    <div class="nav-menu">Stats</div>
+                    <div class="nav-menu">Moves</div>
+                </div>
+                <div id="overlay-dynamic-body" class="overlay-dynamic-body">
+                    <!-- dynamic content for single abilities -->
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
