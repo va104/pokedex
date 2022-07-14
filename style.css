@@ -259,10 +259,10 @@ p{
 }
 
 .overlay-pokemon-type{
-    padding: 13px;
+    padding: 3px;
     margin: 0px 5px;
     border-radius: 100px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     min-width: 75px;
     text-align: center;
 }
@@ -270,16 +270,6 @@ p{
 .overlay-pokemon-types-container{
     display: flex;
     margin-bottom: 20px;
-}
-
-.testgrass{
-    border: 2px solid #41af5d;
-    color: #41af5d;
-}
-
-.testpoison{
-    border: 2px solid #ab6fff;
-    color: #ab6fff;
 }
 
 .pokemon-all-abouts{
