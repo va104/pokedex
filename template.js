@@ -75,7 +75,7 @@ let pokemonTypesAndColors = [
     },
 ]
 
-function HTMLrenderPokemons(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color){
+function HTMLrenderPokemons(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color, pokemonContainer){
     return /*html*/ `
     <div id="pokemonCard${i}" class="pokemon-card" onclick="openPokemonCard(${i})" style="${color}">
     <div class="padding-pokemon-card d-flex">
@@ -84,7 +84,7 @@ function HTMLrenderPokemons(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color
         <div class="name-type">
             <span>${nameToUpperCase}</span>
             <div id="pokemonType${i}" class="pokemon-type">
-                ${pokemonTypes(i)}
+                ${pokemonTypes(i, pokemonContainer)}
             </div>
         </div>
         <div class="pokemon-number">
@@ -94,44 +94,78 @@ function HTMLrenderPokemons(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color
 </div>`
 }
 
-// AboutSection
-// <div class="pokemon-description">
-//                         <span>A strange seed was planted on its back at birth. The plant sprouts and grows with this
-//                             POKéMON.</span>
-//                     </div>
-//                     <div class="pokemon-all-abouts">
-//                         <div class="abouts-categories">
-//                             <div class="abouts-header">
-//                                 <img src="./img/leaf.png" alt="Species">
-//                                 <p>species</p>
-//                             </div>
-//                             <div class="abouts-body">
-//                                 <span>Seed-Pokemon</span>
-//                             </div>
-//                         </div>
-//                         <div class="abouts-categories border-left">
-//                             <div class="abouts-header">
-//                                 <img src="./img/weight.png" alt="Weight">
-//                                 <p>weight</p>
-//                             </div>
-//                             <div class="abouts-body">
-//                                 <span>10cm</span>
-//                                 &nbsp|&nbsp 
-//                                 <span>0.33f</span>
-//                             </div>
-//                         </div>
-//                         <div class="abouts-categories border-left">
-//                             <div class="abouts-header">
-//                                 <img src="./img/height.png" alt="Height">
-//                                 <p>height</p>
-//                             </div>
-//                             <div class="abouts-body">
-//                                 <span>10cm</span>
-//                                 &nbsp|&nbsp 
-//                                 <span>0.33f</span>
-//                             </div>
-//                         </div>
-//                     </div>
+function HTMLrenderPokemonOverlay(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color, pokemonContainer){
+    return /*html*/ `
+    <div class="overlay-top-pokemon" style="${color}">
+            <img class="back-to-menu" src="./img/cross.png" alt="BackToMenu">
+            <div class="overlay-header">
+                <img class="scaleArrow" src="./img/arrowLeft.png" alt="ArrowLeft">
+                <div class="overlay-pokemon-name">
+                    <span>${nameToUpperCase}</span>
+                    <span>${pokemonNumber(pokemonIdStrg)}</span>
+                </div>
+                <img class="scaleArrow arrowRight" src="./img/arrowLeft.png" alt="ArrowRight">
+            </div>
+        </div>
+        <div class="overlay-bottom-pokemon">
+            <img class="pokemon-overlay-img"
+                src=${pokemonImg} alt="">
+            <div class="nav-pokemon-container">
+                <div class="overlay-pokemon-types-container">
+                    ${pokemonTypes(i, pokemonContainer)}                 
+                </div>
+                <div class="nav-menu-container">
+                    <div id="navSection1" class="nav-menu" onclick="contentAboutSection(1)">About</div>
+                    <div id="navSection2" class="nav-menu" onclick="contentStatsSection(2)">Stats</div>
+                    <div id="navSection3" class="nav-menu" onclick="contentMovesSection(3)">Moves</div>
+                </div>
+                <div id="overlay-dynamic-body" class="overlay-dynamic-body">
+                </div>
+            </div>
+        </div>
+    `
+}
+
+function HTMLrenderPokemonAboutSection(flavorText, genera, weight, height, weightLbs, heightFt){
+    return /*html*/ `
+    <div class="pokemon-description">
+        <span>${flavorText}</span>
+    </div>
+    <div class="pokemon-all-abouts">
+        <div class="abouts-categories">
+            <div class="abouts-header">
+                <img src="./img/leaf.png" alt="Species">
+                <p>species</p>
+            </div>
+            <div class="abouts-body">
+                <span>${genera}</span>
+            </div>
+        </div>
+        <div class="abouts-categories border-left">
+            <div class="abouts-header">
+                <img src="./img/weight.png" alt="Weight">
+                <p>weight</p>
+            </div>
+            <div class="abouts-body">
+                <span>${weight}kg</span>
+                &nbsp|&nbsp 
+                <span>${weightLbs}lbs</span>
+            </div>
+        </div>
+        <div class="abouts-categories border-left">
+            <div class="abouts-header">
+                <img src="./img/height.png" alt="Height">
+                <p>height</p>
+            </div>
+            <div class="abouts-body">
+                <span>${height}m</span>
+                &nbsp|&nbsp 
+                <span>${heightFt}ft</span>
+            </div>
+        </div>
+    </div>
+    `
+}
 
 
 
@@ -190,3 +224,4 @@ function HTMLrenderPokemons(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color
 // <div class="moves-container">
 // <div class="move">Vine-Whop</div>
 // </div>
+
