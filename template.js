@@ -97,14 +97,14 @@ function HTMLrenderPokemons(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color
 function HTMLrenderPokemonOverlay(i, pokemonImg, nameToUpperCase, pokemonIdStrg, color, pokemonContainer){
     return /*html*/ `
     <div class="overlay-top-pokemon" style="${color}">
-            <img class="back-to-menu" src="./img/cross.png" alt="BackToMenu">
+            <img onclick="closePokemon()" class="back-to-menu" src="./img/cross.png" alt="BackToMenu">
             <div class="overlay-header">
-                <img class="scaleArrow" src="./img/arrowLeft.png" alt="ArrowLeft">
+                <img onclick="nextPokemon(${i - 1})" class="scaleArrow" src="./img/arrowLeft.png" alt="ArrowLeft">
                 <div class="overlay-pokemon-name">
                     <span>${nameToUpperCase}</span>
                     <span>${pokemonNumber(pokemonIdStrg)}</span>
                 </div>
-                <img class="scaleArrow arrowRight" src="./img/arrowLeft.png" alt="ArrowRight">
+                <img onclick="nextPokemon(${i + 1})" class="scaleArrow arrowRight" src="./img/arrowLeft.png" alt="ArrowRight">
             </div>
         </div>
         <div class="overlay-bottom-pokemon">
@@ -115,9 +115,9 @@ function HTMLrenderPokemonOverlay(i, pokemonImg, nameToUpperCase, pokemonIdStrg,
                     ${pokemonTypes(i, pokemonContainer)}                 
                 </div>
                 <div class="nav-menu-container">
-                    <div id="navSection1" class="nav-menu" onclick="contentAboutSection(1)">About</div>
-                    <div id="navSection2" class="nav-menu" onclick="contentStatsSection(2)">Stats</div>
-                    <div id="navSection3" class="nav-menu" onclick="contentMovesSection(3)">Moves</div>
+                    <div id="navSection1${i}" class="nav-menu" onclick="contentAboutSection(1${i}, ${i})">About</div>
+                    <div id="navSection2${i}" class="nav-menu" onclick="contentStatsSection(2${i}, ${i})">Stats</div>
+                    <div id="navSection3${i}" class="nav-menu" onclick="contentMovesSection(3${i}, ${i})">Moves</div>
                 </div>
                 <div id="overlay-dynamic-body" class="overlay-dynamic-body">
                 </div>
@@ -126,9 +126,9 @@ function HTMLrenderPokemonOverlay(i, pokemonImg, nameToUpperCase, pokemonIdStrg,
     `
 }
 
-function HTMLrenderPokemonAboutSection(flavorText, genera, weight, height, weightLbs, heightFt){
+function HTMLrenderPokemonAboutSection(i, flavorText, genera, weight, height, weightLbs, heightFt){
     return /*html*/ `
-    <div class="pokemon-description">
+    <div class="pokemon-description" style="${backgroundColor(i, 'noContainer')}">
         <span>${flavorText}</span>
     </div>
     <div class="pokemon-all-abouts">
@@ -167,61 +167,68 @@ function HTMLrenderPokemonAboutSection(flavorText, genera, weight, height, weigh
     `
 }
 
+function HTMLrenderPokemonStatsSection(i, hp, attack, defense, specialAttack, specialDefense, speed, total){
+    return /*html*/ `
+        <div class="pokemon-stats-container">
+            <div class="stats">
+                <p>HP</p>
+                <p><b>${hp}</b></p>
+                <div class="stat-statusbar">
+                    <div class="single-stat" style="${styleStatusBar(i, hp, attack, defense, specialAttack, specialDefense, speed)}"></div>
+                </div>
+            </div>
+            <div class="stats">
+                <p>Attack</p>
+                <p><b>${attack}</b></p>
+                <div class="stat-statusbar">
+                    <div class="single-stat" style="${styleStatusBar(i, attack, hp, defense, specialAttack, specialDefense, speed)}"></div>
+                </div>
+            </div>
+            <div class="stats">
+                <p>Defense</p>
+                <p><b>${defense}</b></p>
+                <div class="stat-statusbar">
+                    <div class="single-stat" style="${styleStatusBar(i, defense, attack, hp, specialAttack, specialDefense, speed)}"></div>
+                </div>
+            </div>
+            <div class="stats">
+                <p>Special-Attack</p>
+                <p><b>${specialAttack}</b></p>
+                <div class="stat-statusbar">
+                    <div class="single-stat" style="${styleStatusBar(i, specialAttack, attack, defense, hp, specialDefense, speed)}"></div>
+                </div>
+            </div>
+            <div class="stats">
+                <p>Special-Defense</p>
+                <p><b>${specialDefense}</b></p>
+                <div class="stat-statusbar">
+                    <div class="single-stat" style="${styleStatusBar(i, specialDefense, attack, defense, specialAttack, hp, speed)}"></div>
+                </div>
+            </div>
+            <div class="stats">
+                <p>Speed</p>
+                <p><b>${speed}</b></p>
+                <div class="stat-statusbar">
+                    <div class="single-stat" style="${styleStatusBar(i, speed, attack, defense, specialAttack, specialDefense, hp)}"></div>
+                </div>
+            </div>
+            <div class="stats">
+                <p><b>Total (max. 1.530)</b></p>
+                <p><b>${total}</b></p>
+            </div>
+        </div>
+    `
+}
+
+function HTMLrenderPokemonMovesSection(i){
+    return /*html*/ `
+    <div class="moves-container">
+        ${pokemonMoves(i)} 
+    </div>
+    `
+}
 
 
-// stats
-// <div class="pokemon-stats-container">
-//                         <div class="stats">
-//                             <p>HP</p>
-//                             <p><b>40</b></p>
-//                             <div class="stat-statusbar">
-//                                 <div class="single-stat"></div>
-//                             </div>
-//                         </div>
-//                         <div class="stats">
-//                             <p>Attack</p>
-//                             <p><b>40</b></p>
-//                             <div class="stat-statusbar">
-//                                 <div class="single-stat"></div>
-//                             </div>
-//                         </div>
-//                         <div class="stats">
-//                             <p>Defense</p>
-//                             <p><b>40</b></p>
-//                             <div class="stat-statusbar">
-//                                 <div class="single-stat"></div>
-//                             </div>
-//                         </div>
-//                         <div class="stats">
-//                             <p>Special-Attack</p>
-//                             <p><b>40</b></p>
-//                             <div class="stat-statusbar">
-//                                 <div class="single-stat"></div>
-//                             </div>
-//                         </div>
-//                         <div class="stats">
-//                             <p>Special-Defense</p>
-//                             <p><b>40</b></p>
-//                             <div class="stat-statusbar">
-//                                 <div class="single-stat"></div>
-//                             </div>
-//                         </div>
-//                         <div class="stats">
-//                             <p>Speed</p>
-//                             <p><b>40</b></p>
-//                             <div class="stat-statusbar">
-//                                 <div class="single-stat"></div>
-//                             </div>
-//                         </div>
-//                         <div class="stats">
-//                             <p><b>Total</b></p>
-//                             <p><b>100</b></p>
-//                         </div>
-//                     </div>
 
 
-// moves
-// <div class="moves-container">
-// <div class="move">Vine-Whop</div>
-// </div>
 
