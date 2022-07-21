@@ -7,7 +7,10 @@ let filterdPokemon = [];
 let startLoadingRange = 0;
 let endLoadingRange = 20;
 let increaseRange = 20;
-let pokemonLimit = 901;
+let pokemonLimit = 801;
+let AboutSectionOn = 0;
+let StatsSectionOn = 0;
+let MoveSectionOn = 0;
 
 async function loadPokemon() {
     for (let i = 1; i < pokemonLimit; i++) {
@@ -104,6 +107,12 @@ function backgroundColor(i, container) {
     if (container.id == 'overlay-pokemon-container') {
         return `background: radial-gradient(circle, ${bg1} 0%, rgba(23,23,23,1) 88%);`
     }
+    if (container == 'statsBackground'){
+        return `background-color: ${bg1};`
+    }
+    else{
+        return `box-shadow: 0 0px 5px 0 ${bg1} inset, 0 0px 5px 0 ${bg1} inset, 0 0px 15px 0 ${bg1} inset, 0 0px 5px 0 ${bg1};`
+    }
 }
 
 function pokemonTypes(i, container) {
@@ -116,7 +125,7 @@ function pokemonTypes(i, container) {
         let colorType = pokemonTypesAndColors.find(e => e.name == type)['color'];
         if (container.id == 'containerAllPokemons') {
             dynamicContent += /*html*/ `
-                <img onclick="searchForType('${type}')" src="./img/types/${type}.png" alt="" style="background-color: ${colorType}">
+                <img onclick="searchForType('${type}'), event.stopPropagation()" src="./img/types/${type}.png" alt="" style="background-color: ${colorType}">
                 `;
         }
         if (container.id == 'overlay-pokemon-container') {
@@ -218,39 +227,64 @@ function openPokemonCard(i) {
     let container = document.getElementById('overlay-pokemon-container');
     container.classList.remove('d-none');
     contentPokemons(i, container);
-    contentAboutSection(i);
+    contentAboutSection('1' + i, i);
 }
 
-function contentAboutSection(i) {
-    activeNavElement(i);
+function contentAboutSection(container, i) {
+    //use this variable for switching between the Pokemon Sections
+    AboutSectionOn = 1;
+    StatsSectionOn = MoveSectionOn  = 0;
+
+    activeNavElement(container);
     let dynamicAbilities = document.getElementById('overlay-dynamic-body');
-    let flavorText = allSpecies[i]['flavor_text_entries'][91]['flavor_text'];
+    let flavorText = EngFlavorText(i);
     let genera = allSpecies[i]['genera'][7]['genus'];
     let weight = allPokemons[i]['weight'] / 10;
     let height = allPokemons[i]['height'] / 10;
     let weightLbs = calcWeight(weight);
     let heightFt = calcHeight(height);
-    dynamicAbilities.innerHTML = HTMLrenderPokemonAboutSection(flavorText, genera, weight, height, weightLbs, heightFt);
+    dynamicAbilities.innerHTML = HTMLrenderPokemonAboutSection(i, flavorText, genera, weight, height, weightLbs, heightFt);
 }
 
-function contentStatsSection(i) {
-    activeNavElement(i);
+
+function contentStatsSection(container, i) {
+    //use this variable for switching between the Pokemon Sections
+    StatsSectionOn = 1;
+    AboutSectionOn = MoveSectionOn  = 0;
+
+    activeNavElement(container);
     let dynamicAbilities = document.getElementById('overlay-dynamic-body');
     dynamicAbilities.innerHTML = "";
+    let hp = allPokemons[i]['stats'][0]['base_stat'];
+    let attack = allPokemons[i]['stats'][1]['base_stat']; 
+    let defense = allPokemons[i]['stats'][2]['base_stat']; 
+    let specialAttack = allPokemons[i]['stats'][3]['base_stat']; 
+    let specialDefense = allPokemons[i]['stats'][4]['base_stat']; 
+    let speed = allPokemons[i]['stats'][5]['base_stat'];
+    let total = sumStats(hp, attack, defense, specialAttack, specialDefense, speed);
+    dynamicAbilities.innerHTML = HTMLrenderPokemonStatsSection(i, hp, attack, defense, specialAttack, specialDefense, speed, total);
 }
 
-function contentMovesSection(i) {
-    activeNavElement(i);
+function contentMovesSection(container, i) {
+    //use this variable for switching between the Pokemon Sections
+    MoveSectionOn = 1;
+    AboutSectionOn = StatsSectionOn = 0;
+    activeNavElement(container);
     let dynamicAbilities = document.getElementById('overlay-dynamic-body');
     dynamicAbilities.innerHTML = "";
+    dynamicAbilities.innerHTML = HTMLrenderPokemonMovesSection(i);
 }
 
 function calcWeight(weight) {
-    return weight * 2.205
+    return Math.round(weight * 2.205)
 }
 
 function calcHeight(height) {
-    return height * 3.281
+    return Math.round(height * 3.281)
+}
+
+function sumStats(hp, attack, defense, specialAttack, specialDefense, speed){
+ return (hp + attack + defense + specialAttack + specialDefense + speed)
 }
 
 function activeNavElement(i) {
@@ -261,4 +295,91 @@ function activeNavElement(i) {
         allElements[i].classList.remove('chosenNavElement');
     }
     element.classList.add('chosenNavElement')
+}
+
+function pokemonMoves(i){
+    let element = allPokemons[i]['moves'];
+    let dynamicContent = "";
+    for (let j = 0; j < element.length; j++) {
+        let moves = element[j]['move']['name'];
+        dynamicContent +=  /*html*/ `
+            <div class="move" style="${backgroundColor(i, 'noContainer')}">
+        ${moves}
+    </div>
+        `;
+    }
+    return dynamicContent
+}
+
+function styleStatusBar(i, stat1, stat2, stat3, stat4, stat5, stat6){
+    let divStatusBar = document.getElementsByClassName('stat-statusbar')
+    let lengthOfBar = Math.round(stat1 * 100 / 255);
+    let arrayAllStatus = [];
+    arrayAllStatus.push(stat1, stat2, stat3, stat4, stat5, stat6);
+    let resultInt = arrayAllStatus.map((e) => { 
+        return parseInt(e); 
+      });  
+    let maxValue = Math.max.apply(null, resultInt);
+    resultInt.sort();
+    //find the number of same values in Array
+    // let nrOfMaxValue = resultInt.lastIndexOf(maxValue) - resultInt.indexOf(maxValue);
+    // nrOfMaxValue++;
+
+
+    if(stat1 == maxValue){
+        let dynamicContent = '';
+        dynamicContent += `width: ${lengthOfBar}%; ${backgroundColor(i, 'statsBackground')}; ${backgroundColor(i, 'no-contaienr')}`;
+        divStatusBar[5]
+        return dynamicContent
+    }
+    else{
+        return `width: ${lengthOfBar}%; background-color: #ffffff`
+    }
+};
+
+function nextPokemon(i){
+    let container = document.getElementById('overlay-pokemon-container');
+    if(i == -1){
+        // i = pokemonLimit - 2;
+        i = allPokemons.length - 1     
+        contentPokemons(i, container);
+        choseRightSection(i);
+    }
+    if(i == pokemonLimit - 1){
+        i = 0
+        contentPokemons(i, container);
+        choseRightSection(i);
+    }
+    else{
+        contentPokemons(i, container);
+        choseRightSection(i);
+    }
+}
+
+function closePokemon(){
+    document.getElementById('coverForPokemonCard').classList.remove('d-none');
+    document.getElementById('overlay-pokemon-container').classList.add('d-none');
+}
+
+function EngFlavorText(i){
+    // always take the first english match and filter the special character
+    let flavorArray = allSpecies[i]['flavor_text_entries']
+    for (let i = 0; i < flavorArray.length; i++) {
+        let flavorText = flavorArray[i]['flavor_text'];
+        let flavorLanguage = flavorArray[i]['language']['name'];
+        if(flavorLanguage == 'en'){
+            let result = flavorText.replace(/\f/gi,' ')
+            return result;
+        }
+    }
+}
+
+function choseRightSection(i){
+    if(AboutSectionOn == 1){
+        contentAboutSection('1' + i, i);
+    } else if (StatsSectionOn == 1){
+        contentStatsSection('2' + i, i);  
+    } else if (MoveSectionOn == 1){
+        contentMovesSection('3' + i, i);
+    }
 }
