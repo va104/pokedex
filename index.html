@@ -15,13 +15,27 @@
 <body onload="loadPokemon(), loadTypeButtons()">
     <div id="coverForPokemonCard">
         <div class="header">
-            <div class="title" onclick="renderPokemons('startPage')">POKÉDEX</div>
-            <div onclick="toogleTypes()">types</div>
-            <div>tbd</div>
+            <div class="title" onclick="renderPokemons('startPage'), goBackToNormalView()">POKÉDEX</div>
+            <div class="searchbar">
+                <img onclick="showRespSearchbar()" src="./img/loupe.png" alt="">
+                <div id="inputSearchbar" onclick="activeSearchBar()" class="input-searchbar">
+                    <input id="inputText" onkeyup="SearchbarfilterPokemon()" onclick="closeToggleTypes()" type="text" placeholder="ID or Name">
+                </div>
+            </div>
+            <div id="filterBar" onclick="toogleTypes()" class="filter-bar">
+                <img src="./img/filter.png" alt="">
+            </div>
         </div>
         <div id="allButtons" class="allButtons d-none">
         </div>
+        <div class="searchbar searchbar-resp">
+            <div id="inputSearchbar-resp" onclick="activeSearchBar()" class="input-searchbar d-none">
+                <input id="inputText-resp" onkeyup="SearchbarfilterPokemon()" onclick="closeToggleTypes()" type="text" placeholder="ID or Name">
+            </div>
+        </div>
         <div id="containerAllPokemons" class="main-content-pokemons">
+        </div>
+        <div id="searchedPokemons" class="main-content-pokemons">
         </div>
         <div id="loadMoreButton" class="loadMore-container">
             <button class="loadMore" onclick="loadMorePokemons()">MORE</button>

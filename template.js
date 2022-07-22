@@ -67,7 +67,7 @@ let pokemonTypesAndColors = [
     },
     {
         "name": "dark",
-        "color": "#2f5760",
+        "color": "#678991",
     },
     {
         "name": "fairy",
@@ -141,7 +141,9 @@ function HTMLrenderPokemonAboutSection(i, flavorText, genera, weight, height, we
                 <span>${genera}</span>
             </div>
         </div>
-        <div class="abouts-categories border-left">
+        <div class="vertical-line">
+        </div>
+        <div class="abouts-categories">
             <div class="abouts-header">
                 <img src="./img/weight.png" alt="Weight">
                 <p>weight</p>
@@ -152,7 +154,9 @@ function HTMLrenderPokemonAboutSection(i, flavorText, genera, weight, height, we
                 <span>${weightLbs}lbs</span>
             </div>
         </div>
-        <div class="abouts-categories border-left">
+        <div class="vertical-line">
+        </div>
+        <div class="abouts-categories">
             <div class="abouts-header">
                 <img src="./img/height.png" alt="Height">
                 <p>height</p>
@@ -213,7 +217,7 @@ function HTMLrenderPokemonStatsSection(i, hp, attack, defense, specialAttack, sp
                 </div>
             </div>
             <div class="stats">
-                <p><b>Total (max. 1.530)</b></p>
+                <p><b>Total</b></p>
                 <p><b>${total}</b></p>
             </div>
         </div>
