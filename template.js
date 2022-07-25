@@ -232,6 +232,22 @@ function HTMLrenderPokemonMovesSection(i){
     `
 }
 
+function HTMLrenderNoPokemonFound(){
+    return /*html*/`
+    <div style="background-color: #d75858;" class="pokemon-card">
+    <div class="padding-pokemon-card d-flex">
+        <img style="opacity: 0.4; object-fit: contain;" class="pokemon-img" src="img/pokeball.png" alt="">
+        <div class="name-type">
+            <span>Sorry!</span>
+            <div class="pokemon-type">
+                No Pokemon was found
+                <p>Try another one</p>
+            </div>
+        </div>
+    </div>
+</div>
+    `
+}
 
 
 

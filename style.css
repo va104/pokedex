@@ -1,12 +1,35 @@
+html{
+    scroll-behavior: smooth
+}
+
 body{
     box-sizing: border-box;
     background-color: #171717;
     color: white;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
-    display: flex;
     height: 100vh;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #d4cece; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 
 .d-none{
     display: none !important;
@@ -139,6 +162,7 @@ p{
 }
 
 .loadMore{
+    margin-bottom: 20px;
     width: 80px;
     height: 80px;
     font-size: 25px;
@@ -157,12 +181,11 @@ p{
 
 .overlay-pokemon-container{
     width: 100%;
-    flex: 1;
-    position: relative;
+    height: 100%;
 }
 
 .overlay-top-pokemon{
-    height: 50%;
+    height: 45%;
     width: 100%;
     background: radial-gradient(circle, rgba(65,175,93,1) 0%, rgba(23,23,23,1) 88%)
 }
@@ -204,7 +227,7 @@ p{
     position: absolute;
     top: -220px;
     /* width: clamp(80px, 40%, 450px); */
-    width: 270;
+    /* width: 270; */
     height: 270px;
 }
 
@@ -506,7 +529,6 @@ input[type=text]:focus {
         padding: 12px;
         margin: 0;
         justify-content: flex-start;
-        overflow-x: scroll;
     }
     
     .pokemon-type img{
@@ -553,11 +575,7 @@ input[type=text]:focus {
     left: 190px
    }
 
-   .overlay-bottom-pokemon, .overlay-top-pokemon{
-       height: 50%;
-   }
-
-   .scaleArrow{
+    .scaleArrow{
     width: 40px;  
    }
 
@@ -572,10 +590,13 @@ input[type=text]:focus {
 
    .pokemon-description, .abouts-header p, .overlay-pokemon-type, .stats p{
        font-size: 1.1rem;
+       word-break: break-all;
     }
 
     .nav-menu{
         font-size: 0.9rem;
+        max-width: 33%;
+        word-break: break-all;
     }
 
     .abouts-body{
@@ -633,5 +654,38 @@ input[type=text]:focus {
 
     .searchbar img{
         cursor: pointer;
+    }
+}
+
+@media (max-width: 290px) {
+    .name-type > span{
+        font-size: 1.1rem;
+    }
+
+    .overlay-pokemon-name span:nth-child(1) {
+        font-size: 1.5rem;
+    }
+
+    .pokemon-overlay-img{
+        left: 100px;
+    }
+
+    .nav-menu {
+        font-size: 0.7rem;
+        max-width: 33%;
+        word-break: break-all;
+    }
+
+    .pokemon-description, .abouts-header p, .overlay-pokemon-type, .stats p {
+        font-size: 0.9rem;
+        word-break: break-all;
+    }
+
+    .pokemon-all-abouts{
+        flex-direction: column;
+    }
+
+    .move{
+        font-size: 00.9rem;
     }
 }

@@ -9,6 +9,7 @@
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
+    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico">
     <title>Pokedex</title>
 </head>
 
@@ -18,8 +19,9 @@
             <div class="title" onclick="renderPokemons('startPage'), goBackToNormalView()">POKÉDEX</div>
             <div class="searchbar">
                 <img onclick="showRespSearchbar()" src="./img/loupe.png" alt="">
-                <div id="inputSearchbar" onclick="activeSearchBar()" class="input-searchbar">
-                    <input id="inputText" onkeyup="SearchbarfilterPokemon()" onclick="closeToggleTypes()" type="text" placeholder="ID or Name">
+                <div id="inputSearchbar" onclick="activeSearchBar('inputSearchbar')" class="input-searchbar">
+                    <input id="inputText" onkeyup="searchbarFilterPokemon('inputText')" onclick="closeToggleTypes()" type="text"
+                        placeholder="ID or Name">
                 </div>
             </div>
             <div id="filterBar" onclick="toogleTypes()" class="filter-bar">
@@ -29,8 +31,9 @@
         <div id="allButtons" class="allButtons d-none">
         </div>
         <div class="searchbar searchbar-resp">
-            <div id="inputSearchbar-resp" onclick="activeSearchBar()" class="input-searchbar d-none">
-                <input id="inputText-resp" onkeyup="SearchbarfilterPokemon()" onclick="closeToggleTypes()" type="text" placeholder="ID or Name">
+            <div id="inputSearchbar-resp" onclick="activeSearchBar('inputSearchbar-resp')" class="input-searchbar d-none">
+                <input id="inputText-resp" onkeyup="searchbarFilterPokemon('inputText-resp')" onclick="closeToggleTypes()" type="text"
+                    placeholder="ID or Name">
             </div>
         </div>
         <div id="containerAllPokemons" class="main-content-pokemons">
@@ -43,6 +46,7 @@
     </div>
     <div id="overlay-pokemon-container" class="overlay-pokemon-container d-none">
     </div>
+
 </body>
 
 </html>

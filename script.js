@@ -101,6 +101,10 @@ function backgroundColor(i, container) {
             bg3 = findColorinHex(type)
         }
     }
+    return returnBackgroundColor(bg1, bg2, bg3, container);
+}
+
+function returnBackgroundColor(bg1, bg2, bg3, container){
     if ((container.id == 'searchedPokemons') || (container.id == 'containerAllPokemons')) {
         return `background: linear-gradient(123deg, ${bg1} 0%, ${bg2} 45%, ${bg3} 100%);`
     }
@@ -112,13 +116,12 @@ function backgroundColor(i, container) {
     }
     else {
         return `box-shadow: 0 0px 5px 0 ${bg1} inset, 0 0px 5px 0 ${bg1} inset, 0 0px 15px 0 ${bg1} inset, 0 0px 5px 0 ${bg1};`
-    }
+    }  
 }
 
 function pokemonTypes(i, container) {
     let pokemonTypesArray = allPokemons[i]['types'];
     let dynamicContent = '';
-
     for (let j = 0; j < pokemonTypesArray.length; j++) {
         const type = pokemonTypesArray[j]['type']['name'];
         //background color type
@@ -175,12 +178,8 @@ function loadFilteredPokemons(pokemonContainer, filterdPokemon){
         for (let j = 0; j < filterdPokemon.length; j++) {
             if (allPokemons[i]['id'] == filterdPokemon[j]['id']) {
                 contentPokemons(i, pokemonContainer);
-                // countTypes++;
                 window.scrollTo(0, 0);
             }
-            // if (countTypes == endLoadingRange) {
-            //     break
-            // }
         }
     }
 }
@@ -197,17 +196,6 @@ function loadMoreFilterdPokemons() {
         renderPokemons();
     }
 }
-// window.addEventListener('scroll', () => {
-//     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-//     const scrolled = window.scrollY;
-
-//     if (Math.ceil(scrolled) === scrollable) {
-//         //Abbruchbedingung wenn alle geladen sind
-//         startLoadingRange = endLoadingRange;
-//         endLoadingRange = endLoadingRange + increaseRange;
-//         renderPokemons();
-//     }
-// });
 
 function loadMorePokemons() {
     if ((pokemonLimit - increaseRange - 1) == endLoadingRange) {
@@ -424,11 +412,9 @@ function choseRightSection(i) {
     }
 }
 
-function activeSearchBar() {
-    let activeSearch = document.getElementById('inputSearchbar');
+function activeSearchBar(id) {
+    let activeSearch = document.getElementById(id);
     activeSearch.classList.add('input-searchbar-fixed');
-    let activeSearchResp = document.getElementById('inputSearchbar-resp');
-    activeSearchResp.classList.add('input-searchbar-fixed');
 }
 
 function checkedClick() {
@@ -458,21 +444,16 @@ function closeToggleTypes(){
     containerButtons.classList.add('d-none');
 }
 
-function SearchbarfilterPokemon() {
+function searchbarFilterPokemon(id) {
     let pokemonContainer = document.getElementById('searchedPokemons');
     pokemonContainer.innerHTML = '';
     document.getElementById('containerAllPokemons').classList.add('d-none');
     document.getElementById('loadMoreButton').classList.add('d-none');
     document.getElementById('filterBar').style = 'visibility:hidden';
-    let search = document.getElementById('inputText').value.toLowerCase();
-    let searchResp = document.getElementById('inputText-resp').value.toLowerCase();
-    let RespSearchbar = document.getElementById('inputSearchbar-resp')
+    let search = document.getElementById(id).value.toLowerCase();
     let counter = 0;
-    if(!RespSearchbar.classList.contains('d-none')){
-        filterPokemon(searchResp, counter, pokemonContainer);
-    } else{
-        filterPokemon(search, counter, pokemonContainer);
-    }
+    filterPokemon(search, counter, pokemonContainer);
+
 }
 
 function filterPokemon(search, counter, pokemonContainer){
@@ -487,8 +468,12 @@ function filterPokemon(search, counter, pokemonContainer){
         //too much if every Pokemon would be loaded
         if (counter == 20) {
             break;
-        }
+        } 
     }
+    if(pokemonContainer.innerHTML == ''){
+        pokemonContainer.innerHTML = HTMLrenderNoPokemonFound();
+    };
+
     // if the value is empty, all Pokemons should be visible
     if (search == ''){
         goBackToNormalView();
@@ -514,3 +499,9 @@ function showRespSearchbar(){
         document.getElementById('inputSearchbar-resp').classList.toggle('d-none');
     }
 }
+
+window.addEventListener('resize', () =>{
+    if (window.innerWidth > 500){
+        document.getElementById('inputSearchbar-resp').classList.add('d-none');
+    }
+})
