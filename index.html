@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font.css">
     <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico">
-    <title>Pokedex</title>
+    <title>Pokédex</title>
 </head>
 
 <body onload="loadPokemon(), loadTypeButtons()">
@@ -46,7 +46,10 @@
     </div>
     <div id="overlay-pokemon-container" class="overlay-pokemon-container d-none">
     </div>
-
+    <div id="spinnerOverlay" class="overlay-spinner">
+        <div class="lds-dual-ring"></div>
+        <p>Loading Pokémon</p>
+    </div>
 </body>
 
 </html>

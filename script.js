@@ -19,6 +19,7 @@ async function loadPokemon() {
         currentPokemon = await response.json();
         allPokemons.push(currentPokemon);
         if (i == 20) {
+            closeSpinnerOverlay();
             renderPokemons();
         }
         let url2 = `https://pokeapi.co/api/v2/pokemon-species/${i}`
@@ -42,6 +43,11 @@ function renderPokemons(startPage) {
         contentPokemons(i, pokemonContainer, allPokemons);
     }
 }
+
+function closeSpinnerOverlay () {
+    let overlayID = document.getElementById('spinnerOverlay');
+    overlayID.classList.add('d-none');
+} 
 
 function contentPokemons(i, pokemonContainer) {
     let name = allPokemons[i]['name'];
