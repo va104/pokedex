@@ -264,6 +264,7 @@ p{
 .pokemon-overlay-img{
     position: absolute;
     top: -220px;
+    object-fit: contain;
     /* width: clamp(80px, 40%, 450px); */
     /* width: 270; */
     height: 270px;
@@ -423,6 +424,7 @@ p{
     flex-direction: column;
 }
 
+
 .stats{
     display: flex;
     justify-content: flex-start;
@@ -431,12 +433,15 @@ p{
     padding: 10px;
 }
 
+
+
 .stats p:nth-child(1){
     width: 40%;
 }
 
 .stats p:nth-child(2){
     width: 10%;
+    /* margin-left: 25px; */
 }
 
 .stats p:nth-child(2){
@@ -628,7 +633,6 @@ input[type=text]:focus {
 
    .pokemon-description, .abouts-header p, .overlay-pokemon-type, .stats p{
        font-size: 1.1rem;
-       word-break: break-all;
     }
 
     .nav-menu{
@@ -662,7 +666,7 @@ input[type=text]:focus {
     }
 
     .stats p:nth-child(1){
-        width: 30%;
+        width: 40%;
     }
 
     .stats p:nth-child(2){
